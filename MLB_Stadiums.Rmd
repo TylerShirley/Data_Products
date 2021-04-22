@@ -1,0 +1,24 @@
+---
+title: "MLB Stadium Locations"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r, echo = FALSE, warning = FALSE}
+library(leaflet)
+library(jsonlite)
+```
+
+#Mapping all MLB parks in US
+Interacting with the map allows you to see which team plays baseball at which park in the United States.
+```{r,}
+stad_df <- jsonlite::fromJSON("https://gist.githubusercontent.com/the55/2155142/raw/30a251395cd3c04771f29f2a6295fc8849b73d11/mlb_stadium.json")
+
+stad_df[,c(3,4)] %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(popup = stad_df$team)
+
+```
